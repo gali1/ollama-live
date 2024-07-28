@@ -1,9 +1,9 @@
 {
     "name": "Remote OLLAMA API",
     "image": "python:3.10.13",
-    "onCreateCommand": "apt-get updat && apt-get install curl git wget python3-pip cron lshw lspci psmisc lsof -y",
-    "updateContentCommand": "pip install flask==2.0.2 && pip install werkzeug==2.0.3 && pip install requests==2.26.0 && pip install python-dotenv==0.19.1 && pip install requests && pip install python-dotenv && pip install llama-cpp-pytho && export OLLAMA_HOST=0.0.0.0:11434 && curl https://ollama.ai/install.sh | sh && ollama serve > /dev/null 2>&1 >output.log 2>&1 &",
-    "postCreateCommand": "ollama pull tinyllama && wget -c https://github.com/gali1/external-codebase/raw/main/text-gen-webui/main.py && wget -c https://github.com/gali1/external-codebase/raw/main/text-gen-webui/index.html && echo '* * * * * python /workspaces/external-codebase/main.py' >> /var/spool/cron/crontabs/root && python main.py",
+    "onCreateCommand": "apt-get update && apt-get install -y curl git wget python3-pip cron lshw lspci psmisc lsof",
+    "updateContentCommand": "pip install flask==2.0.2 && pip install werkzeug==2.0.3 && pip install requests==2.26.0 && pip install python-dotenv==0.19.1 && pip install llama-cpp-python && export OLLAMA_HOST=0.0.0.0:11434 && curl https://ollama.ai/install.sh | sh && ollama serve > /dev/null 2>&1 &> output.log &",
+    "postCreateCommand": "ollama pull tinyllama && wget -c https://github.com/gali1/external-codebase/raw/main/text-gen-webui/main.py && wget -c https://github.com/gali1/external-codebase/raw/main/text-gen-webui/index.html && echo '* * * * * python /workspaces/external-codebase/main.py' >> /var/spool/cron/crontabs/root && python3 /workspaces/external-codebase/main.py",
     "postStartCommand": "",
     "customizations": {
         "codespaces": {
@@ -18,17 +18,15 @@
                             "ms-vscode.remote-server"
                         ]
                     }
-                },
-                "forwardPorts": [
-                    8888,
-                    9898,
-                    11434,
-                    8877,
-                    9899
-                ]
-            }
-
-// ${devcontainerId
-// }
-//  	Allow Features to refer to an identifier that is unique to the dev container they are installed into and that is stable across rebuilds.
-// The properties supporting it in devcontainer.json are: name, runArgs, initializeCommand, onCreateCommand, updateContentCommand, postCreateCommand, postStartCommand, postAttachCommand, workspaceFolder, workspaceMount, mounts, containerEnv, remoteEnv, containerUser, remoteUser, and customizations.
+                }
+            },
+            "forwardPorts": [
+                8888,
+                9898,
+                11434,
+                8877,
+                9899
+            ]
+        }
+    }
+}
