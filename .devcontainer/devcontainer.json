@@ -17,7 +17,7 @@
         "customizations": {
             "codespaces": {
                 "repositories": {
-                    "*/*": {
+                    "gali1/*": {
                         "permissions": "write-all",
                         "vscode": {
                             "extensions": [
